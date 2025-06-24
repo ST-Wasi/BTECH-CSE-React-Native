@@ -16,6 +16,7 @@ const GuessScreen = ({ userNumber, setStep }) => {
   const [minValue, setMinValue] = useState(1);
   const [maxValue, setMaxValue] = useState(100);
   const [guess, setGuess] = useState(null);
+
   function guessTheNumber() {
     let randomValue =
       Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
@@ -23,7 +24,7 @@ const GuessScreen = ({ userNumber, setStep }) => {
   }
   useEffect(() => {
     setGuess(guessTheNumber(minValue, maxValue));
-  }, [userNumber, minValue, maxValue]);
+  }, [minValue, maxValue]);
 
   return (
     <View style={{ flex: 1 }}>
@@ -47,6 +48,9 @@ const GuessScreen = ({ userNumber, setStep }) => {
                 onPressFunction={() => {
                   if (userNumber < guess) {
                     setMaxValue(guess);
+                    console.log(maxValue);
+                  } else if (userNumber == guess) {
+                    Alert.alert("Your guessed it Right");
                   } else {
                     Alert.alert("Don't say Lie !");
                   }
@@ -66,10 +70,13 @@ const GuessScreen = ({ userNumber, setStep }) => {
               </PrimaryButton>
               <PrimaryButton
                 onPressFunction={() => {
-                  if (userNumber == null) {
-                    Alert.alert("The Number Can't Be Empty");
+                  if (userNumber > guess) {
+                    setMinValue(guess);
+                  } else if (userNumber == guess) {
+                    Alert.alert("Your guessed it Right");
+                    setStep(3)
                   } else {
-                    setStep(2);
+                    Alert.alert("DPn't Say Lie");
                   }
                 }}
               >

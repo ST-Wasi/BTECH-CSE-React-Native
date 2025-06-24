@@ -26,7 +26,7 @@ export default function App() {
           setUserNumber={setUserNumber}
         />
       )}
-      {step == 2 && <GuessScreen userNumber={userNumber} />}
+      {step == 2 && <GuessScreen userNumber={userNumber} setStep={setStep} />}
       {step == 3 && <GameOverScreen />}
       {/* </ImageBackground> */}
       <StatusBar hidden />
