@@ -1,1 +1,2 @@
-continued with Day6B project
+
+npm install @react-navigation/native-stack
