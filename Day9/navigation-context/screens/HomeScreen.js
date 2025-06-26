@@ -1,20 +1,24 @@
 import { View, Text, Pressable } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
+import { useContext } from "react";
+import { GlobalContext } from "../context/newContext";
+import { useSelector, useDispatch } from "react-redux";
+import { incrementValue } from "../slices/newSlice";
 
 const HomeScreen = ({ navigation }) => {
-  console.log("✌️navigation --->", navigation);
+  const count = useSelector((state) => state.newslice.value);
+  const dispatch = useDispatch();
+  console.log("✌️count --->", count);
+
   return (
     <View>
       <Text>HomeScreen</Text>
       <Pressable
         onPress={() => {
-          navigation.navigate("Category", {
-            name: "Wasi",
-            age: 0,
-          });
+          dispatch(incrementValue());
         }}
       >
-        <Text>Navigate</Text>
+        <Text>Navigate {count}</Text>
       </Pressable>
       <PrimaryButton />
     </View>
