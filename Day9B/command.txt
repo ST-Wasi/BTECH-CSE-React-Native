@@ -1,0 +1,35 @@
+npx create-expo-app navigation-context --template blank
+
+1. React navigation
+2. npm install @react-navigation/native
+3. npx expo install react-native-screens react-native-safe-area-context
+4. npm install @react-navigation/stack
+5. npm run android / start
+6. Navigate to Navigation Container and change version from 7 to 6
+7. import { NavigationContainer } from '@react-navigation/native'; in App.js
+8. import { createStackNavigator } from '@react-navigation/stack';
+
+
+
+
+// CONTEXT
+1. createContext();
+2. Provider
+3. useContext()
+
+
+// Redux 
+1. npm install @reduxjs/toolkit
+2. npm i react-redux
+
+// Keywords
+1. configureStore()
+2. Provider
+3. reducers 
+4. createSlice()
+5. state
+6. action
+7. payload
+
+// vairable acces in redux =  useSelector from react-redux
+// whenever we have to use reducer or Setter functions we use useDispatch() from react-redux
