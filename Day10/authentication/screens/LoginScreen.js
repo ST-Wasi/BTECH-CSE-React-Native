@@ -35,6 +35,7 @@ const LoginScreen = () => {
             await Login(user.email, user.password);
             const isLogin = isUserLoggedin();
             if (isLogin) {
+              setIsAUthenthicated(true)
               navigation.navigate("Welcome");
             }
           }}

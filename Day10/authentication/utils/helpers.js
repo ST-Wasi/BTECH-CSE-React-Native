@@ -39,3 +39,11 @@ export const Login = async (email, password) => {
     console.log("Error Occured While Login");
   }
 };
+
+export const Logout = async () => {
+  try {
+    await AsyncStorage.removeItem("isLogin");
+  } catch (error) {
+    console.log("An Error Occured While Logging Out");
+  }
+};
