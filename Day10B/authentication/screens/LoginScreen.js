@@ -2,12 +2,14 @@ import { View, Text, TextInput, Button } from "react-native";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Login } from "../utils/helper";
+import { useDispatch } from "react-redux";
 
 const LoginScreen = () => {
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   return (
     <View>
@@ -32,7 +34,7 @@ const LoginScreen = () => {
         <Button
           title="Login User"
           onPress={async () => {
-            await Login(user.email, user.password);
+            await Login(user.email, user.password, dispatch);
           }}
         />
         <View>

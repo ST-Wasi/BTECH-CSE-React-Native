@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 
 export const Register = async (name, email, password) => {
   try {
@@ -43,19 +44,41 @@ export const Logout = async () => {
   await AsyncStorage.removeItem("isLogin");
 };
 
-export const Login = async (email, password) => {
+export const Login = async (email, password, dispatch) => {
   try {
     if (!email || !password) {
-      console.log("Email or Passoword Not Found");
+      console.log("❌ Email or password is missing.");
       return;
     }
-    let registeredEmail = await AsyncStorage.getItem("email");
-    let registeredPassword = await AsyncStorage.getItem("password");
-    if (password == registeredPassword && email == registeredEmail) {
+
+    const response = await fetch(
+      `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.EXPO_PUBLIC_FIREBASE_API}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+          returnSecureToken: true,
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (response.ok) {
       await AsyncStorage.setItem("isLogin", "true");
-      console.log("User Logged In");
+      await AsyncStorage.setItem("email", email);
+      await AsyncStorage.setItem("token", data.idToken);
+
+      dispatch(setIsUserAuthenticated(true));
+      console.log("✅ Firebase Login Successful:", data);
+    } else {
+      console.log("❌ Login failed:", data.error.message);
     }
   } catch (error) {
-    console.log("Error Occures While Login");
+    console.log("🔥 Error during Firebase Login:", error);
   }
 };

@@ -3,7 +3,7 @@ import { Button, StyleSheet, Text, View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import RegisterScreen from "./screens/RegisterScreen";
-import { Provider } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "./store";
 import LoginScreen from "./screens/LoginScreen";
 import { iUserLoggedin, Logout } from "./utils/helper";
@@ -12,12 +12,15 @@ import WelcomeScreen from "./screens/WelcomeScreen";
 
 export default function App() {
   const Stack = createStackNavigator();
-  const [authenticated, setAuthenticated] = useState(false);
+  const dispatch = useDispatch();
+  const authenticated = useSelector(
+    (state) => state.authslice.isUserAuthenticated
+  );
 
   useEffect(() => {
     async function getInfo() {
       const isUserLogin = await iUserLoggedin();
-      setAuthenticated(isUserLogin);
+      dispatch(setIsUserAuthenticated(isUserLogin));
     }
     getInfo();
   }, []);
@@ -34,7 +37,7 @@ export default function App() {
                 <Button
                   title="Logout"
                   onPress={async () => {
-                    await Logout();
+                    await Logout(dispatch);
                   }}
                 />
               );
@@ -55,7 +58,7 @@ export default function App() {
   }
 
   return (
-    <Provider store={store}>
+    <>
       <NavigationContainer>
         {authenticated ? (
           <AuthenticatedNavigator />
@@ -63,7 +66,7 @@ export default function App() {
           <UnAuthenticatedNavigator />
         )}
       </NavigationContainer>
-    </Provider>
+    </>
   );
 }
 
