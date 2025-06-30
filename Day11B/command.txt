@@ -1,0 +1,13 @@
+// Section 
+
+
+
+------ Authenticated ------------ // Only Login user can access
+Category Screen
+Dishes Screen
+Dish Detail
+
+
+-----Un-AUthenticated----------------- Both USer ( not-loggedin) can access
+Login Screen
+Register Screen 
