@@ -16,12 +16,10 @@ function UnAuthenticatedNavigator({
       <Stack.Screen
         name="Register"
         component={RegisterScreen}
-        initialParams={{ setIsUSerLoggedIn, isUserLoggedIns, getUser }}
       />
       <Stack.Screen
         name="Login"
         component={LoginScreen}
-        initialParams={{ setIsUSerLoggedIn, isUserLoggedIns, getUser }}
       />
     </Stack.Navigator>
   );

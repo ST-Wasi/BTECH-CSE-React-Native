@@ -3,28 +3,18 @@ import { NavigationContainer } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import AuthenticatedNavigator from "./CustomNavigator/AuthenticatedNavigator";
 import UnAuthenticatedNavigator from "./CustomNavigator/UnAuthenticatedNavigator";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import UserContextProvier from "./context/userContext";
+import { useContext } from "react";
+import { UserContext } from "./context/userContext";
+import { useSelector } from "react-redux";
 
 export default function App() {
-  const [isUserLoggedIn, setIsUSerLoggedIn] = useState(false);
-  const [loading, setLoading] = useState(false);
-  async function getUser() {
-    try {
-      setLoading(true);
-      const token = await AsyncStorage.getItem("token");
-      if (token) {
-        setIsUSerLoggedIn(true);
-      }
-    } catch (error) {
-      console.log("Error Occured While Checkig User");
-    } finally {
-      setLoading(false);
-    }
-  }
+  const isUserLoggedIn = useSelector((state) => state.user.isUserLoggedIn);
+  const loading = useSelector((state) => state.user.loading);
 
   useEffect(() => {
-    getUser();
-  }, []);
+    console.log(isUserLoggedIn);
+  }, [isUserLoggedIn]);
 
   if (loading) {
     return <Text>loading</Text>;
@@ -32,17 +22,9 @@ export default function App() {
   return (
     <NavigationContainer>
       {isUserLoggedIn ? (
-        <AuthenticatedNavigator
-          isUserLoggedIn={isUserLoggedIn}
-          setIsUSerLoggedIn={setIsUSerLoggedIn}
-          getUser={getUser}
-        />
+        <AuthenticatedNavigator />
       ) : (
-        <UnAuthenticatedNavigator
-          isUserLoggedIn={isUserLoggedIn}
-          setIsUSerLoggedIn={setIsUSerLoggedIn}
-          getUser={getUser}
-        />
+        <UnAuthenticatedNavigator />
       )}
     </NavigationContainer>
   );
