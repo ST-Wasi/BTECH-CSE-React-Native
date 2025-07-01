@@ -1,18 +1,17 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "../screens/HomeScreen";
 import CategoryScreen from "../screens/CategoryScreen";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DishListScreen from "../screens/DishListScreen";
+import { UserDataContext } from "../context/userContext";
+import DishDetail from "../screens/DishDetail";
 
-const AuthenticatedNavigator = ({
-  getUser,
-  userAuthenticated,
-  setUserAuthenticated,
-}) => {
+const AuthenticatedNavigator = ({}) => {
   const Stack = createStackNavigator();
+  const { getUser } = useContext(UserDataContext);
   return (
     <Stack.Navigator initialRouteName="Category">
       <Stack.Screen
@@ -39,6 +38,7 @@ const AuthenticatedNavigator = ({
       />
       <Stack.Screen name="Category" component={CategoryScreen} />
       <Stack.Screen name="DishList" component={DishListScreen} />
+      <Stack.Screen name="DishDetail" component={DishDetail} />
     </Stack.Navigator>
   );
 };

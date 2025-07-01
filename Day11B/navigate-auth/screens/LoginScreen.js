@@ -1,11 +1,12 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { View, Text, TextInput, Button } from "react-native";
+import { UserDataContext } from "../context/userContext";
 
-const LoginScreen = ({ route }) => {
+const LoginScreen = ({}) => {
   //   console.log(route.params);
-  const { setUserAuthenticated, getUser } = route.params;
+  const { getUser } = useContext(UserDataContext);
   const [email, setEmail] = useState("");
   const navigation = useNavigation();
   const [password, setPassword] = useState("");
@@ -22,7 +23,7 @@ const LoginScreen = ({ route }) => {
           secureTextEntry={true}
         />
         <Button
-          title="Login User"
+          title="Login User sdsd"
           onPress={async () => {
             console.log({ email, password });
             // setUserAuthenticated(true);

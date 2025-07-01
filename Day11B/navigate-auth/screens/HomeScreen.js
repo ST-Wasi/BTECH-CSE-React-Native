@@ -1,8 +1,9 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
+import { UserDataContext } from "../context/userContext";
 
 const HomeScreen = ({ route }) => {
-  const { getUser } = route.params;
+  // const { getUser } = useContext(UserDataContext);
   return (
     <View>
       <Text>HomeScreen</Text>

@@ -15,7 +15,6 @@ const UnAuthenthicatedNavigator = ({
       <Stack.Screen
         name="Login"
         component={LoginScreen}
-        initialParams={{ setUserAuthenticated, userAuthenticated, getUser }}
       />
       <Stack.Screen name="Register" component={RegisterScreen} />
     </Stack.Navigator>

@@ -1,31 +1,13 @@
 import { Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AuthenticatedNavigator from "./CustomNavigators/AuthenticatedNavigator";
 import UnAuthenthicatedNavigator from "./CustomNavigators/UnAuthenthicatedNavigator";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import UserProvider, { UserDataContext } from "./context/userContext";
 
 export default function App() {
-  const [userAuthenticated, setUserAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(false);
-  async function getUser() {
-    try {
-      setLoading(true);
-      const token = await AsyncStorage.getItem("token");
-      if (token) {
-        setUserAuthenticated(true);
-        setLoading(false);
-      }
-      setLoading(false);
-    } catch (error) {
-      console.log("Error Occured From Getting User");
-    }
-  }
-
-  useEffect(() => {
-    getUser();
-  }, []);
-
+  const { userAuthenticated, loading } = useContext(UserDataContext);
   if (loading) {
     return (
       <View>
@@ -37,17 +19,9 @@ export default function App() {
   return (
     <NavigationContainer>
       {userAuthenticated ? (
-        <AuthenticatedNavigator
-          userAuthenticated={userAuthenticated}
-          setUserAuthenticated={setUserAuthenticated}
-          getUser={getUser}
-        />
+        <AuthenticatedNavigator />
       ) : (
-        <UnAuthenthicatedNavigator
-          userAuthenticated={userAuthenticated}
-          setUserAuthenticated={setUserAuthenticated}
-          getUser={getUser}
-        />
+        <UnAuthenthicatedNavigator />
       )}
     </NavigationContainer>
   );
