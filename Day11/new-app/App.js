@@ -17,7 +17,7 @@ export default function App() {
   }, [isUserLoggedIn]);
 
   if (loading) {
-    return <Text>loading</Text>;
+    return <Text>loading</Text>;  
   }
   return (
     <NavigationContainer>
