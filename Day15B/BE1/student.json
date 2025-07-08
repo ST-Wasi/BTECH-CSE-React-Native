@@ -1,0 +1,13 @@
+{
+  "STUDENTS": [
+    { "id": 1, "name": "Wasi" },
+    { "id": 2, "name": "Kartik" },
+    { "id": 3, "name": "Shivam" },
+    { "id": 4, "name": "Sahil" },
+    { "id": 5, "name": "Kumar" },
+    { "id": 6, "name": "Anmol" },
+    { "id": 7, "name": "Rahul" },
+    { "id": 8, "name": "David" },
+    { "id": 9, "name": "Chutki" }
+  ]
+}
