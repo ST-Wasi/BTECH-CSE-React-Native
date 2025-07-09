@@ -83,6 +83,7 @@ app.put("/user/:id", (req, res) => {
   const { id } = req.params;
   fs.readFile("student.json", "utf-8", (err, data) => {
     const parsedData = JSON.parse(data);
+    
     let findStudent = parsedData.STUDENTS.find((item) => item.id == id);
     const fikteredSTudentsArray = parsedData.STUDENTS.filter(
       (item) => item.id != id

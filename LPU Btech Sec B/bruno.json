@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "LPU Btech Sec B",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
