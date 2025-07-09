@@ -93,7 +93,12 @@ app.post("/login", async (req, res) => {
 
     if (isPassowrdMatched) {
       // now if passwrd is mathced then we have to generate the tokebn and send it back to the Frontend
-      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+      let token;
+      if (user.token) {
+        token = user.token;
+      } else {
+        token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+      }
 
       // checking the token
       console.log("✌️token --->", token);
