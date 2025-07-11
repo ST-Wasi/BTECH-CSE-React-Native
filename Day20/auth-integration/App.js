@@ -26,12 +26,12 @@ function UnAuthenticatedNavigator() {
 }
 
 export default function App() {
-  const { isUserLoggedin, setIsUserLoggedIn } = useContext(AuthContext);
+  const { isUserLoggedin, setIsUserLoggedIn, role } = useContext(AuthContext);
 
   return (
     <NavigationContainer>
       {isUserLoggedin ? (
-        <AuthenticatedNavigator />
+         role == "byuer" ? <AuthenticatedNavigator /> : <View></View>
       ) : (
         <UnAuthenticatedNavigator />
       )}

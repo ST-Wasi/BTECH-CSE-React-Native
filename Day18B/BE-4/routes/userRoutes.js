@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post("/register", async (req, res) => {
   try {
-    const { fullname, email, password, phone } = req.body;
+    const { fullname, email, password, phone, role } = req.body;
 
     // if email and passowrd is not there then we need to sen dthe error mesage and status code 400
     if (!email || !password) {
@@ -42,6 +42,7 @@ router.post("/register", async (req, res) => {
       phone: phone ? phone : "",
       token: "",
       fullname: fullname ? fullname : "",
+      role: role ?? role,
     });
     return res.status(201).json({
       message: "User Registered",
@@ -113,8 +114,7 @@ router.post("/login", async (req, res) => {
 });
 router.get("/get-user", isAuthenticated, isAdmin, async (req, res) => {
   try {
-    const user = await User.findById(req.user._id);
-    return res.status(200).json(user);
+    return res.status(200).json(req.user);
   } catch (error) {
     return res.status(400).json({
       message: "Error Occured while Getting User",

@@ -21,6 +21,8 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
+      enum: ["seller", "buyer"],
+      default: "buyer",
     },
   },
   { timestamps: true }
