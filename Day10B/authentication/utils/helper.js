@@ -1,5 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+// import setIsUserAuthenticated from "../slices/authSlice";
+// console.log("✌️setIsUserAuthenticated --->", setIsUserAuthenticated);
 
 export const Register = async (name, email, password) => {
   try {
@@ -7,34 +9,41 @@ export const Register = async (name, email, password) => {
     // await AsyncStorage.setItem("email", email);
     // await AsyncStorage.setItem("password", password);
     // console.log("User Registered");
-    console.log(process.env.EXPO_PUBLIC_FIREBASE_API);
-    const response = await fetch(
-      `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.EXPO_PUBLIC_FIREBASE_API}`,
-      {
-        method: "POST",
-        body: {
-          email,
-          password,
-          returnSecureToken: true,
-        },
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    console.log(email, password);
+    const response = await fetch(`http://localhost:8080/api/register`, {
+      method: "POST",
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     const data = await response.json();
     console.log("✌️data --->", data);
   } catch (error) {
+    console.log("✌️error --->", error);
     console.log("Error Occured While Registering User");
   }
 };
 
 export const iUserLoggedin = async () => {
   try {
-    if (await AsyncStorage.getItem("isLogin")) {
+    const response = await fetch(`http://localhost:8080/api/get-user`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        token: await AsyncStorage.getItem("token"),
+      },
+    });
+    const data = await response.json();
+    console.log("✌️data from get user--->", data);
+    if (data.token) {
       return true;
+    } else {
+      return false;
     }
-    return false;
   } catch (error) {
     console.log("Error Occured While Checking Authentication");
   }
@@ -44,41 +53,34 @@ export const Logout = async () => {
   await AsyncStorage.removeItem("isLogin");
 };
 
-export const Login = async (email, password, dispatch) => {
+export const Login = async (
+  email,
+  password,
+  dispatch,
+  setIsUserAuthenticated
+) => {
   try {
     if (!email || !password) {
       console.log("❌ Email or password is missing.");
       return;
     }
 
-    const response = await fetch(
-      `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.EXPO_PUBLIC_FIREBASE_API}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-          returnSecureToken: true,
-        }),
-      }
-    );
+    const response = await fetch(`http://localhost:8080/api/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
 
     const data = await response.json();
-
-    if (response.ok) {
-      await AsyncStorage.setItem("isLogin", "true");
-      await AsyncStorage.setItem("email", email);
-      await AsyncStorage.setItem("token", data.idToken);
-
-      dispatch(setIsUserAuthenticated(true));
-      console.log("✅ Firebase Login Successful:", data);
-    } else {
-      console.log("❌ Login failed:", data.error.message);
-    }
+    await AsyncStorage.setItem("token", data.token);
+    dispatch(setIsUserAuthenticated(true));
   } catch (error) {
+    console.log("✌️error --->", error);
     console.log("🔥 Error during Firebase Login:", error);
   }
 };

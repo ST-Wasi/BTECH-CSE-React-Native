@@ -40,7 +40,7 @@ const RegisterScreen = () => {
           title="Register User"
           onPress={async () => {
             await Register(user.name, user.email, user.password);
-            navigation.navigate("Login");
+            // navigation.navigate("Login");
           }}
         />
         <View>

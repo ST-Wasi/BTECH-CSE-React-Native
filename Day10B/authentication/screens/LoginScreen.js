@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Login } from "../utils/helper";
 import { useDispatch } from "react-redux";
+import { setIsUserSuthenticated } from "../slices/authSlice";
 
 const LoginScreen = () => {
   const [user, setUser] = useState({
@@ -34,7 +35,12 @@ const LoginScreen = () => {
         <Button
           title="Login User"
           onPress={async () => {
-            await Login(user.email, user.password, dispatch);
+            await Login(
+              user.email,
+              user.password,
+              dispatch,
+              setIsUserSuthenticated
+            );
           }}
         />
         <View>

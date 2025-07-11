@@ -4,6 +4,8 @@ import { User } from "../Modals/User.js";
 export const isAuthenticated = async (req, res, next) => {
   try {
     const headers = req.headers;
+    console.log("✌️headers --->", headers);
+
     const verifyToken = jwt.verify(headers.token, process.env.JWT_SECRET);
     console.log("✌️verifyToken --->", verifyToken);
     const user = await User.findById(verifyToken.userId);
@@ -17,6 +19,7 @@ export const isAuthenticated = async (req, res, next) => {
         message: "You are not Authorized to access this Route",
       });
     }
+    req.user = user;
     next();
   } catch (error) {
     return res.status(401).json({

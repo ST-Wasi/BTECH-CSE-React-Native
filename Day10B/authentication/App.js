@@ -9,6 +9,8 @@ import LoginScreen from "./screens/LoginScreen";
 import { iUserLoggedin, Logout } from "./utils/helper";
 import { useEffect, useState } from "react";
 import WelcomeScreen from "./screens/WelcomeScreen";
+import setIsUserAuthenticated from "./slices/authSlice";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -16,6 +18,28 @@ export default function App() {
   const authenticated = useSelector(
     (state) => state.authslice.isUserAuthenticated
   );
+
+  async function getUser() {
+    try {
+      const token = await AsyncStorage.getItem("token");
+      const response = await fetch(`http://localhost:8080/api/get-user`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          token: token,
+        },
+      });
+      const data = await response.json();
+      console.log("✌️data from get user--->", data);
+      if (data.token) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.log("Error Occured While Checking Authentication");
+    }
+  }
 
   useEffect(() => {
     async function getInfo() {
