@@ -5,8 +5,11 @@ import jwt from "jsonwebtoken";
 import { User } from "./modals/User.js";
 import { isAUtheticated } from "./middlewares/isAuthenticated.js";
 import bcrypt from "bcrypt";
+import cors from "cors";
 dotenv.config();
 const app = express();
+app.use(cors());
+app.use(express.json());
 app.use(express.json());
 mongoose
   .connect(process.env.MONGODB_URL)
@@ -114,8 +117,7 @@ app.post("/login", async (req, res) => {
 
 app.get("/user", isAUtheticated, async (req, res) => {
   try {
-    console.log("USer route Function Called");
-    res.send("get user route");
+    return res.status(200).json(req.user);
   } catch (error) {}
 });
 
