@@ -31,7 +31,11 @@ export default function App() {
   return (
     <NavigationContainer>
       {isUserLoggedin ? (
-         role == "byuer" ? <AuthenticatedNavigator /> : <View></View>
+        role == "byuer" ? (
+          <AuthenticatedNavigator />
+        ) : (
+          <View></View>
+        )
       ) : (
         <UnAuthenticatedNavigator />
       )}
