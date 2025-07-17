@@ -1,0 +1,31 @@
+1. What is React JS ? [JS Library use to make User Interfaces]
+2. Why React JS ? OR How React JS Sites different From HTML CSS and JS Sites ?
+3. Hooks in React ? / function , parameters ? , return
+4. useState(), useEffect(), useCallBack(), useMemo(), useRef(), useContext()
+5. Library and Framework Diffrence. [Strict rules, Folder Structure, File Naming Convention,  folder Names, Placemnet Of Files] (Frame Work = Next JS);
+6. Next Js and React Diffrence? [{
+    1: Library, and Framework,
+    2: Only CSR / SSG but Next JS Gives us SSR, SSG + CSR
+}]
+7.Diffrence between useCallBack() and useMemo() hook
+8. context (useContext()) ?  //  solve problem called prop drilling 
+{
+    createContext() // use to create context
+    Provider //  This use to wrap the WHole app and circulate the context values
+    useContext() //  when provider is wrapped then only we can use useCOntext and use the values of the context
+}
+9. Routing in react JS  [need to install react-router-dom [BrowserRouter, Routes, Route] ]
+10. Next Js Router [ 2 types of router available {
+    1: App Router
+    2: Page Router
+} ] 
+
+/home: create a foldr inside app folder name home and inside home folder i will create a file called page.jsx
+11: Server Actions in Next js
+12. Life Cycle Method In React Js [ // Before ES6 , No Function Component, Class Based Componen
+    componentdidMount
+    componentWillMount
+    componentWillUnMount
+    componentWillUpdate
+]
+13. Memoization- [useCallBack(), useMemo, Memo, lazy , Suspense]
