@@ -1,0 +1,7 @@
+1. What is React JS ? [JS Library use to make User Interfaces]
+2. Why React JS ? OR How React JS Sites different From HTML CSS and JS Sites ?
+3. Hooks in React ?
+4. useState(), useEffect(), useCallBack(), useMemo(), useRef(), useContext()
+5. 
+
+Capgemini Session Leave Dl
